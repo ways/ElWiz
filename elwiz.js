@@ -298,16 +298,21 @@ let pulse = {
       console.log("Pulse is offline!");
     }
   },
-
   list1Func: function (buf) {
     // Process List #1 raw data
-    let wDay = buf.readUInt8(23);
     return {
-      date: pulseDate(buf.subarray(19)),
-      weekDay: weekDay(wDay),
-      powImpActive: buf.readUIntBE(34, 4) / 1000
+      powImpActive: buf.readUIntBE(31, 4) / 1000
     }
   },
+  // list1Func: function (buf) {
+  //   // Process List #1 raw data
+  //   let wDay = buf.readUInt8(23);
+  //   return {
+  //     date: pulseDate(buf.subarray(19)),
+  //     weekDay: weekDay(wDay),
+  //     powImpActive: buf.readUIntBE(34, 4) / 1000
+  //   }
+  // },
 
   list2Func: function (buf) {
     // Process List #2 raw data
@@ -397,7 +402,7 @@ let pulse = {
             pulse.timerValue = watchValue;
             pulse.timerExpired = false;
 
-            if (buf[2] === 0x27) { // 0x27,39
+            if (buf[2] === 0x27 || buf[2] === 0x2a) { // 0x27,39
               // List 1 data
               pulse.pulseData1 = pulse.list1Func(buf);
               // Hook for postprocessing List #1 data
@@ -433,6 +438,7 @@ let pulse = {
                 let msg = message.toString();
                 console.log("Event message: ", msg);
                 console.log("Raw data packet exception : ", JSON.stringify(buf));
+		console.log("buf[2] was :", buf[2]);
               }
             }
           } // End valid data

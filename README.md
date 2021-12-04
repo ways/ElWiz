@@ -1,6 +1,9 @@
 
 # ElWiz - program for å lese data fra Tibber Pulse
 
+Denne "forken" er kun for å endre småting til å fungere mot Aidon-målere. Takk til orginalrepo og @kristianrd.
+
+
 **Remark:** *This program is mainly written for a Norwegian or nordic country audience, and is therefore witten in the Norwegian language. However, the program comments are written in English for those who are not natives.*
 
 ## Innhold
